@@ -21,7 +21,7 @@
           <td>{{ index }}</td>
           <td>{{ todoList.comment }}</td>
           <td>
-            <button>
+            <button @click="toggleStatus(index)">
               {{ todoList.status }}
             </button>
           </td>
@@ -60,6 +60,10 @@ export default {
     // ToDoリストの削除
     deleteTodoList(index) {
       this.$store.commit('deleteTodoList', index);
+    },
+    // タスクの状態の切り替え
+    toggleStatus(index) {
+      this.$store.commit('toggleStatus', index);
     },
   },
 };
