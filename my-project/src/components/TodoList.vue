@@ -25,7 +25,7 @@
               {{ todoList.status }}
             </button>
           </td>
-          <td><button>削除</button></td>
+          <td><button @click="deleteTodoList(index)">削除</button></td>
         </tr>
       </tbody>
     </table>
@@ -56,6 +56,10 @@ export default {
     addTodoList() {
       this.$store.commit('addTodoList', { comment: this.comment, status: '作業中' });
       this.comment = ''; // タスクを追加した後に入力したテキストを消去
+    },
+    // ToDoリストの削除
+    deleteTodoList(index) {
+      this.$store.commit('deleteTodoList', index);
     },
   },
 };

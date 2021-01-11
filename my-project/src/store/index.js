@@ -16,7 +16,11 @@ export default createStore({
   mutations: {
     // ToDoリストにタスクを追加
     addTodoList(state, { comment, status }) {
-      state.todoLists.push({ comment: comment, status: status });
+      state.todoLists.push({ comment, status });
+    },
+    // ToDoリストの削除
+    deleteTodoList(state, index) {
+      state.todoLists.splice(index, 1);
     },
   },
   actions: {},
