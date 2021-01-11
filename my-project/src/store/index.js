@@ -22,6 +22,16 @@ export default createStore({
     deleteTodoList(state, index) {
       state.todoLists.splice(index, 1);
     },
+    // タスクの状態の切り替え
+    toggleStatus(state, index) {
+      const todoList = state.todoLists[index];
+      if (todoList.status === '作業中') {
+        todoList.status = '完了';
+      } else {
+        todoList.status = '作業中';
+      }
+      state.todoLists.splice(index, 1, todoList);
+    },
   },
   actions: {},
   modules: {},
