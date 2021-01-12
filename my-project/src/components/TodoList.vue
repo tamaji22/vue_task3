@@ -16,18 +16,51 @@
         </tr>
       </thead>
       <!-- ToDoリストの表示 -->
-      <tbody v-for="(todoList, index) in todoLists" :key="index">
-        <tr>
-          <td>{{ index }}</td>
-          <td>{{ todoList.comment }}</td>
-          <td>
-            <button @click="toggleStatus(index)">
-              {{ todoList.status }}
-            </button>
-          </td>
-          <td><button @click="deleteTodoList(index)">削除</button></td>
-        </tr>
-      </tbody>
+      <!-- 「作業中」のタスクのみ表示 -->
+      <template v-if="select === 'working'">
+        <tbody v-for="(todoList, index) in todoLists" :key="index">
+          <tr v-if="todoList.status === '作業中'">
+            <td>{{ index }}</td>
+            <td>{{ todoList.comment }}</td>
+            <td>
+              <button @click="toggleStatus(index)">
+                {{ todoList.status }}
+              </button>
+            </td>
+            <td><button @click="deleteTodoList(index)">削除</button></td>
+          </tr>
+        </tbody>
+      </template>
+      <!-- 「完了」のタスクのみ表示 -->
+      <template v-else-if="select === 'done'">
+        <tbody v-for="(todoList, index) in todoLists" :key="index">
+          <tr v-if="todoList.status === '完了'">
+            <td>{{ index }}</td>
+            <td>{{ todoList.comment }}</td>
+            <td>
+              <button @click="toggleStatus(index)">
+                {{ todoList.status }}
+              </button>
+            </td>
+            <td><button @click="deleteTodoList(index)">削除</button></td>
+          </tr>
+        </tbody>
+      </template>
+      <!-- すべてのタスクを表示 -->
+      <template v-else>
+        <tbody v-for="(todoList, index) in todoLists" :key="index">
+          <tr>
+            <td>{{ index }}</td>
+            <td>{{ todoList.comment }}</td>
+            <td>
+              <button @click="toggleStatus(index)">
+                {{ todoList.status }}
+              </button>
+            </td>
+            <td><button @click="deleteTodoList(index)">削除</button></td>
+          </tr>
+        </tbody>
+      </template>
     </table>
     <!-- 新規タスクをToDoリストに追加 -->
     <h2>新規タスクの追加</h2>
